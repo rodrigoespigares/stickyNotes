@@ -1,0 +1,22 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+body{
+    background-color: lightblue;
+}
+.note{
+    background-color: lightgoldenrodyellow;
+    padding: .5rem;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+.text{
+    background-color: transparent;
+    border: none;
+}
+.text:focus{
+    outline: none;
+}
