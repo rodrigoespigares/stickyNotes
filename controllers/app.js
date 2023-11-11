@@ -40,6 +40,7 @@ function saveBtn(count) {
 		for (const btnMove of btnsMove) {
 			btnMove.addEventListener("click", moveNote);
 		}
+        myNotes.saveToLocalStorage();
 	});
 }
 function moveNote() {
