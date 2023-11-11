@@ -1,8 +1,10 @@
-class note {
+class Note {
+    
 	constructor(title, text, hour) {
 		this.title = title;
 		this.text = text;
 		this.hour = hour;
+        this.allNotes=[];
 	}
     getTitle()
     {
@@ -28,4 +30,5 @@ class note {
     {
         this.hour = hour;
     }
+    
 }
