@@ -10,6 +10,11 @@ window.onload = () => {
 	div = new viewNote();
 	myNotes = new ListNotes();
 
+	myNotes.getAllNotes().forEach((note, key) => {
+		div.load(key, note["title"], note["text"], note["hour"]);
+		count++;
+	});
+
 	document.getElementById("btnNote").addEventListener("click", () => {
 		div.create(count);
 		saveBtn(count);
@@ -40,7 +45,7 @@ function saveBtn(count) {
 		for (const btnMove of btnsMove) {
 			btnMove.addEventListener("click", moveNote);
 		}
-        myNotes.saveToLocalStorage();
+		myNotes.saveToLocalStorage();
 	});
 }
 function moveNote() {
