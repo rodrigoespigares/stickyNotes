@@ -8,7 +8,7 @@ class viewNote
     create(id)
     {
         let div = document.createElement("div");
-        div.className = "note";
+        div.classList = "note yellow";
         div.id = id;
         let input = document.createElement("input");
         input.className = "title";
@@ -27,7 +27,7 @@ class viewNote
     successful(id, title, text, hour) 
     {
         let div = document.getElementById(id)
-        div.classList="note on"
+        div.classList.add("on")
         let input = document.getElementById("inputTitle"+id);
         let textarea = document.getElementById("inputText"+id);
         let button = document.getElementById("save"+id);
@@ -47,20 +47,22 @@ class viewNote
         h6.className = "hour";
         h6.id = "hour"+id;
         let move = document.createElement("button");
-        move.id="move"+id;
+        move.id="move";
         move.className="move";
-        move.textContent="Move";
+        let ico = document.createElement("img");
+        ico.src="src/img/move.png";
+        ico.className="ico"
+        move.appendChild(ico);
+
+        let h6btn = document.createElement("div");
+        h6btn.className="note__container";
+        
+        h6btn.appendChild(h6);
+        h6btn.appendChild(move);
+
+        
         div.appendChild(h3);
         div.appendChild(p);
-        div.appendChild(h6);
-        div.appendChild(move);
-    }
-    move(note, deltaX, deltaY) {
-        // Mover la nota sumando las diferencias a las coordenadas actuales
-        let currentLeft = parseInt(window.getComputedStyle(note).left);
-        let currentTop = parseInt(window.getComputedStyle(note).top);
-
-        note.style.left = currentLeft + deltaX + 'px';
-        note.style.top = currentTop + deltaY + 'px';
+        div.appendChild(h6btn);
     }
 }
