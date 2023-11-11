@@ -24,6 +24,10 @@ main{
     align-items: center;
     height: 100vh;
 }
+#btnNote{
+    padding: .5rem;
+    letter-spacing: 3px;
+}
 .note{
     position: absolute;
     background-color: lightgoldenrodyellow;
