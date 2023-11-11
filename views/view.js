@@ -61,10 +61,11 @@ class viewNote {
 		div.appendChild(p);
 		div.appendChild(h6btn);
 	}
-	load(id, title, text, hour) {
+	load(id, title, text, hour,posX,posY) {
 		let div = document.createElement("div");
 		div.classList = "note yellow on";
 		div.id = id;
+		
 		let h3 = document.createElement("h3");
 		h3.textContent = title;
 		let p = document.createElement("p");
@@ -92,6 +93,13 @@ class viewNote {
 		div.appendChild(h3);
 		div.appendChild(p);
 		div.appendChild(h6btn);
-		document.body.appendChild(div);
+		div.style.left = `${posX}px`; // Establecer la posición horizontal
+    	div.style.top = `${posY}px`; // Establecer la posición vertical
+
+    	document.body.appendChild(div);
+
+		
+		
+		
 	}
 }

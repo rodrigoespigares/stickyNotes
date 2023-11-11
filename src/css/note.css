@@ -1,0 +1,48 @@
+
+#btnNote{
+    padding: .5rem;
+    letter-spacing: 3px;
+}
+.note{
+    position: absolute;
+    padding: .5rem;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 200px;
+    top: 3px;
+    left: 50px;
+    z-index: 1;
+}
+.yellow{
+    background-color: lightgoldenrodyellow;
+}
+.blue{
+    background-color: lightblue;
+}
+.pink{
+    background-color: lightpink;
+}
+.text{
+    background-color: transparent;
+    border: none;
+    resize: none;
+    width: 100%;
+    height: 100%;
+}
+.text:focus{
+    outline: none;
+}
+.move{
+    width: 20px;
+    height: 20px;
+}
+.ico{
+    width: 100%;
+    height: 100%;
+}
+.note__container{
+    display: flex;
+    justify-content: space-between;
+}

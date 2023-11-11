@@ -2,18 +2,18 @@ var div;
 var myNotes;
 var count = 0;
 var ratonEncima = false;
-var posX;
-var posY;
 var notes;
+var posX, posY;
+
 
 window.onload = () => {
 	div = new viewNote();
 	myNotes = new ListNotes();
 
 	myNotes.getAllNotes().forEach((note, key) => {
-		div.load(key, note["title"], note["text"], note["hour"]);
+		div.load(key, note["title"], note["text"], note["hour"], note["posX"], note["posY"]);
 		count++;
-	});
+	  });
 
 	document.getElementById("btnNote").addEventListener("click", () => {
 		div.create(count);
@@ -43,24 +43,31 @@ function saveBtn(count) {
 		);
 		let btnsMove = document.getElementsByClassName("move");
 		for (const btnMove of btnsMove) {
-			btnMove.addEventListener("click", moveNote);
+			btnMove.addEventListener("click", () => {
+			  moveNote(myNote);
+			});
 		}
 		myNotes.saveToLocalStorage();
 	});
 }
-function moveNote() {
+function moveNote(myNote) {
 	let notes = document.getElementsByClassName("on");
-
+	
 	for (let i = 0; i < notes.length; i++) {
 		notes[i].ratonEncima = false;
-
+		
 		notes[i].addEventListener("click", function (e) {
+			
 			this.ratonEncima = !this.ratonEncima;
 			if (this.ratonEncima) {
 				let rect = this.getBoundingClientRect();
 				this.posX = e.clientX - rect.left;
 				this.posY = e.clientY - rect.top;
+			}else{
+				myNote.setPosX(parseInt(notes[i].style.left))
+				myNote.setPosY(parseInt(notes[i].style.top))
 			}
+			myNotes.saveToLocalStorage();
 		});
 	}
 
