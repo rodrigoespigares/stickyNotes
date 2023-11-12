@@ -7,7 +7,6 @@ class Note {
         this.posX = posX;
         this.posY = posY;
         this.colour = colour;
-        this.allNotes=[];
 	}
     getTitle()
     {

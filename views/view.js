@@ -184,20 +184,12 @@ class viewNote {
 		colour.appendChild(cB);
 		headColour.appendChild(h3);
 		headColour.appendChild(colour)
-
-
-
-
 		div.appendChild(headColour);
 		div.appendChild(p);
 		div.appendChild(h6btn);
-		div.style.left = `${posX}px`; // Establecer la posición horizontal
-    	div.style.top = `${posY}px`; // Establecer la posición vertical
+		div.style.left = `${posX}px`;
+    	div.style.top = `${posY}px`;
 
     	document.body.appendChild(div);
-
-		
-		
-		
 	}
 }
