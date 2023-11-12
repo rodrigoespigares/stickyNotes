@@ -4,14 +4,14 @@ var count = 0;
 var ratonEncima = false;
 var notes;
 var posX, posY;
-
+var validateColours = ["pink","green","blue","yellow"]
 
 window.onload = () => {
 	div = new viewNote();
 	myNotes = new ListNotes();
 
 	myNotes.getAllNotes().forEach((note, key) => {
-		div.load(key, note["title"], note["text"], note["hour"], note["posX"], note["posY"]);
+		div.load(key, note["title"], note["text"], note["hour"], note["posX"], note["posY"], note["colour"]);
 		count++;
 	  });
 
@@ -47,6 +47,15 @@ function saveBtn(count) {
 			  moveNote(myNote);
 			});
 		}
+		let btnsColour = document.getElementsByClassName("note__header__colour");
+		for (const btnColour of btnsColour) {
+			btnColour.addEventListener("click", (e) => {
+				if (validateColours.includes(e.target.className)) {
+					e.target.parentNode.parentNode.parentNode.parentNode.classList = "note "+e.target.className+" on";
+					myNote.setColour(e.target.className);
+				}
+			});
+		}
 		myNotes.saveToLocalStorage();
 	});
 }
@@ -80,4 +89,7 @@ function moveNote(myNote) {
 			}
 		}
 	});
+}
+function changeColour(myNote) {
+	
 }
