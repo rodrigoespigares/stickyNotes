@@ -36,7 +36,7 @@ function saveBtn(count) {
 		let m = now.getMinutes().toString().padStart(2, "0");
 		let hour = h + "." + m;
 
-		myNote = new Note(tit, txt, hour);
+		myNote = new Note(count, tit, txt, hour);
 		myNotes.addNotes(myNote);
 		div.successful(
 			count,
@@ -53,8 +53,12 @@ function saveBtn(count) {
 		let btnsTrash = document.getElementsByClassName("trash");
 		for (const btnTrash of btnsTrash) {
 			btnTrash.addEventListener("click", () => {
-				myNotes.deleteNote(btnTrash.parentNode.parentNode.parentNode.id);
-				div.delete(btnTrash.parentNode.parentNode.parentNode.id);
+				let id = btnTrash.parentNode.parentNode.parentNode.id;
+				let index = myNotes.getAllNotes().findIndex((element) => {
+					return element.id === id;
+				})
+				myNotes.deleteNote(index);
+				div.delete(id);
 			});
 		}
 		let btnsColour = document.getElementsByClassName("note__header__colour");

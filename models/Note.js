@@ -1,6 +1,7 @@
 class Note {
     
-	constructor(title, text, hour, posX = 0, posY = 0, colour = "yellow") {
+	constructor(id, title, text, hour, posX = 0, posY = 0, colour = "yellow") {
+        this.id = id;
 		this.title = title;
 		this.text = text;
 		this.hour = hour;
