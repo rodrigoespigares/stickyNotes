@@ -10,15 +10,12 @@ var myNote;
 window.onload = () => {
 	div = new viewNote();
 	myNotes = new ListNotes();
-
-	console.log(myNotes.getAllNotes());
 	myNotes.getAllNotes().forEach((note, key) => {
 		
 		myNote = new Note(note["title"], note["text"], note["hour"], note["posX"], note["posY"], note["colour"]);
 		div.load(key, myNote.getTitle(), myNote.getText(), myNote.getHour(), myNote.getPosX(), myNote.getPosY(), myNote.getColour());
 		count++;
 	});
-
 	document.getElementById("btnNote").addEventListener("click", () => {
 		div.create(count);
 		saveBtn(count);
@@ -50,7 +47,14 @@ function saveBtn(count) {
 		let btnsMove = document.getElementsByClassName("move");
 		for (const btnMove of btnsMove) {
 			btnMove.addEventListener("click", () => {
-			  moveNote(myNote);
+			  	moveNote(myNote);
+			});
+		}
+		let btnsTrash = document.getElementsByClassName("trash");
+		for (const btnTrash of btnsTrash) {
+			btnTrash.addEventListener("click", () => {
+				myNotes.deleteNote(btnTrash.parentNode.parentNode.parentNode.id);
+				div.delete(btnTrash.parentNode.parentNode.parentNode.id);
 			});
 		}
 		let btnsColour = document.getElementsByClassName("note__header__colour");

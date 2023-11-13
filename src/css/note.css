@@ -37,14 +37,15 @@
 .text:focus{
     outline: none;
 }
-.move{
+.move, .trash{
     width: 20px;
     height: 20px;
 }
-.ico{
+.ico, .ico2{
     width: 100%;
     height: 100%;
 }
+
 .note__container{
     display: flex;
     justify-content: space-between;

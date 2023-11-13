@@ -23,14 +23,22 @@ class viewNote {
 		document.body.appendChild(div);
 	}
 	successful(id, title, text, hour) {
+		/**
+		 * CREATE DIV GENERAL
+		 */
 		let div = document.getElementById(id);
 		div.classList.add("on");
+		// Selected input
 		let input = document.getElementById("inputTitle" + id);
 		let textarea = document.getElementById("inputText" + id);
 		let button = document.getElementById("save" + id);
-		let h3 = document.createElement("h3");
-		h3.textContent = title;
+		/**
+		 * COLOURS BUTTONS
+		 */
+		let colour = document.createElement("div");
+		colour.className = "note__header__colour";
 
+		// Yellow
 		let cY = document.createElement("button");
 		cY.id = "yellow";
 		cY.className = "yellow";
@@ -39,6 +47,7 @@ class viewNote {
 		yellow.className = "yellow";
 		cY.appendChild(yellow);
 
+		// Green		
 		let cG = document.createElement("button");
 		cG.id = "green";
 		cG.className = "green";
@@ -47,6 +56,7 @@ class viewNote {
 		green.className = "green";
 		cG.appendChild(green);
 
+		// Pink
 		let cP = document.createElement("button");
 		cP.id = "pink";
 		cP.className = "pink";
@@ -54,6 +64,8 @@ class viewNote {
 		pink.src = "src/img/pink.png";
 		pink.className = "pink";
 		cP.appendChild(pink);
+
+		// Blue
 		let cB = document.createElement("button");
 		cB.id = "blue";
 		cB.className = "blue";
@@ -62,84 +74,168 @@ class viewNote {
 		blue.className = "blue";
 		cB.appendChild(blue);
 
-		let colour = document.createElement("div");
-		colour.className = "note__header__colour";
 
+		
+		/**
+		 * HEADER + COLOURS
+		 */
 		let headColour = document.createElement("div");
 		headColour.className = "note__header";
 		
-		
+		/**
+		 * APPEND COLOURS
+		 */
 		colour.appendChild(cY);
 		colour.appendChild(cG);
 		colour.appendChild(cP);
 		colour.appendChild(cB);
-		headColour.appendChild(h3);
-		headColour.appendChild(colour)
+		
+		
 
-
-
+		/**
+		 * TITLE
+		 */
+		let h3 = document.createElement("h3");
+		h3.textContent = title;
+		h3.className = "title";
+		h3.id = "title" + id;
+		/**
+		 * TEXT
+		 */
 		let p = document.createElement("p");
 		p.textContent = text;
+		p.className = "text";
+		p.id = "text" + id;
+		/**
+		 * HOUR
+		 */
 		let h6 = document.createElement("h6");
 		h6.textContent = hour;
+		h6.className = "hour";
+		h6.id = "hour" + id;
+		/** 
+		 * CHECK IF EXITS INPUT AND DELETE
+		 */
 		if (input) div.removeChild(input);
 		if (textarea) div.removeChild(textarea);
 		if (button) div.removeChild(button);
-		h3.className = "title";
-		h3.id = "title" + id;
-		p.className = "text";
-		p.id = "text" + id;
-		h6.className = "hour";
-		h6.id = "hour" + id;
+
+
+
+		/** 
+		 * CONFIG BUTONS
+		 */
+		let divbtns = document.createElement("div");
+		// Move
 		let move = document.createElement("button");
 		move.id = "move";
 		move.className = "move";
+		// Icon move
 		let ico = document.createElement("img");
 		ico.src = "src/img/move.png";
 		ico.className = "ico";
 		move.appendChild(ico);
+		// Trash
+		let trash = document.createElement("button");
+		trash.id = "trash";
+		trash.className = "trash";
+		// Icon trash
+		let ico2 = document.createElement("img");
+		ico2.src = "src/img/trash.png";
+		ico2.className = "ico2";
+		trash.appendChild(ico2);
+		// Append
+		divbtns.appendChild(move);
+		divbtns.appendChild(trash);
 
+		/**
+		 * HOUR + CONFIG BUTTONS
+		 */
 		let h6btn = document.createElement("div");
 		h6btn.className = "note__container";
-
+		// Append
 		h6btn.appendChild(h6);
-		h6btn.appendChild(move);
-
+		h6btn.appendChild(divbtns);
+		
+		// Appends all
+		headColour.appendChild(h3);
+		headColour.appendChild(colour)
 		div.appendChild(headColour);
 		div.appendChild(p);
 		div.appendChild(h6btn);
 	}
 	load(id, title, text, hour,posX,posY,noteColour) {
+		/**
+		 * GENERAL DIV
+		 */
 		let div = document.createElement("div");
 		div.classList = "note";
 		div.classList.add(noteColour);
 		div.classList.add("on");
 		div.id = id;
-		
+		/**
+		 * TITLE
+		 */
 		let h3 = document.createElement("h3");
 		h3.textContent = title;
-		let p = document.createElement("p");
-		p.textContent = text;
-		let h6 = document.createElement("h6");
-		h6.textContent = hour;
 		h3.className = "title";
 		h3.id = "title" + id;
+		/**
+		 * TEXT
+		 */
+		let p = document.createElement("p");
+		p.textContent = text;
 		p.className = "text";
 		p.id = "text" + id;
+		/**
+		 * HOUR
+		 */
+		let h6 = document.createElement("h6");
+		h6.textContent = hour;
 		h6.className = "hour";
 		h6.id = "hour" + id;
+		/** 
+		 * CONFIG BUTONS
+		 */
+		let divbtns = document.createElement("div");
+		// Move
 		let move = document.createElement("button");
 		move.id = "move";
 		move.className = "move";
+		// Icon move
 		let ico = document.createElement("img");
 		ico.src = "src/img/move.png";
 		ico.className = "ico";
 		move.appendChild(ico);
+		// Trash
+		let trash = document.createElement("button");
+		trash.id = "trash";
+		trash.className = "trash";
+		// Icon trash
+		let ico2 = document.createElement("img");
+		ico2.src = "src/img/trash.png";
+		ico2.className = "ico2";
+		trash.appendChild(ico2);
+		// Append
+		divbtns.appendChild(move);
+		divbtns.appendChild(trash);
 
+		/**
+		 * HOUR + CONFIG BUTTONS
+		 */
 		let h6btn = document.createElement("div");
 		h6btn.className = "note__container";
+		// Append
 		h6btn.appendChild(h6);
-		h6btn.appendChild(move);
+		h6btn.appendChild(divbtns);
+
+		/**
+		 * COLOURS BUTTONS
+		 */
+		let colour = document.createElement("div");
+		colour.className = "note__header__colour";
+
+		// Yellow
 		let cY = document.createElement("button");
 		cY.id = "yellow";
 		cY.className = "yellow";
@@ -148,6 +244,7 @@ class viewNote {
 		yellow.className = "yellow";
 		cY.appendChild(yellow);
 
+		// Green		
 		let cG = document.createElement("button");
 		cG.id = "green";
 		cG.className = "green";
@@ -156,6 +253,7 @@ class viewNote {
 		green.className = "green";
 		cG.appendChild(green);
 
+		// Pink
 		let cP = document.createElement("button");
 		cP.id = "pink";
 		cP.className = "pink";
@@ -163,6 +261,8 @@ class viewNote {
 		pink.src = "src/img/pink.png";
 		pink.className = "pink";
 		cP.appendChild(pink);
+
+		// Blue
 		let cB = document.createElement("button");
 		cB.id = "blue";
 		cB.className = "blue";
@@ -171,25 +271,43 @@ class viewNote {
 		blue.className = "blue";
 		cB.appendChild(blue);
 
-		let colour = document.createElement("div");
-		colour.className = "note__header__colour";
 
+		
+		/**
+		 * HEADER + COLOURS
+		 */
 		let headColour = document.createElement("div");
 		headColour.className = "note__header";
 		
-		
+		/**
+		 * APPEND COLOURS
+		 */
 		colour.appendChild(cY);
 		colour.appendChild(cG);
 		colour.appendChild(cP);
 		colour.appendChild(cB);
+
+		/**
+		 * APPENDS ALL
+		 */
 		headColour.appendChild(h3);
 		headColour.appendChild(colour)
 		div.appendChild(headColour);
 		div.appendChild(p);
 		div.appendChild(h6btn);
+		/**
+		 * STYLE NOTE
+		 */
 		div.style.left = `${posX}px`;
     	div.style.top = `${posY}px`;
-
+		/**
+		 * APPENDS ALL
+		 */
     	document.body.appendChild(div);
+	}
+	delete(index)
+	{
+		let div = document.getElementById(index);
+		document.body.removeChild(div)
 	}
 }

@@ -14,4 +14,7 @@ class ListNotes {
     getAllNotes() {
         return this.listNotes;
     }
+    deleteNote(index){
+        this.listNotes.splice(index,1);
+    }
 }
