@@ -31,3 +31,9 @@ main{
 .column h2{
     padding-top: 1rem;
 }
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
