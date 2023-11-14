@@ -7,21 +7,19 @@ var posX, posY;
 var validateColours = ["pink","green","blue","yellow"]
 var myNote;
 window.onload = () => {
-	if (document.URL==url) {
-		div = new viewNote();
-		myNotes.getAllNotes().forEach((note, key) => {
-			div.load(key, note["title"], note["text"], note["hour"], note["posX"], note["posY"], note["colour"]);
-			count++;
-		});
-		document.getElementById("btnNote").addEventListener("click", () => {
-			div.create(count);
-			saveBtn(count);
-			count++;
-		});
-		setTimeout(moveNote,0);
-		setTimeout(colour,0);
-		setTimeout(trash,0)
-	}
+	div = new viewNote();
+	myNotes.getAllNotes().forEach((note, key) => {
+		div.load(key, note["title"], note["text"], note["hour"], note["posX"], note["posY"], note["colour"]);
+		count++;
+	});
+	document.getElementById("btnNote").addEventListener("click", () => {
+		div.create(count);
+		saveBtn(count);
+		count++;
+	});
+	setTimeout(moveNote,0);
+	setTimeout(colour,0);
+	setTimeout(trash,0)
 };
 function saveBtn(count) {
 	let btn = document.getElementById("save" + count);
