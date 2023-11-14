@@ -1,66 +1,66 @@
-
-#btnNote{
-    padding: .5rem;
-    letter-spacing: 3px;
+#btnNote {
+	padding: 0.5rem;
+	letter-spacing: 3px;
 }
-.note{
-    position: absolute;
-    padding: .5rem;
-    width: fit-content;
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-    height: 200px;
-    top: 3px;
-    left: 50px;
-    z-index: 1;
+.note {
+	position: absolute;
+	padding: 0.5rem;
+	width: fit-content;
+	display: flex;
+	flex-direction: column;
+	width: 200px;
+	height: 200px;
+	top: 3px;
+	left: 50px;
+	z-index: 1;
 }
-.yellow{
-    background-color: #fafad2;
+.yellow {
+	background-color: #fafad2;
 }
-.blue{
-    background-color: #add8e6;
+.blue {
+	background-color: #add8e6;
 }
-.pink{
-    background-color: #ffb6c1;
+.pink {
+	background-color: #ffb6c1;
 }
-.green{
-    background-color: #b5f0b5;
+.green {
+	background-color: #b5f0b5;
 }
-.text{
-    background-color: transparent;
-    border: none;
-    resize: none;
-    width: 100%;
-    height: 100%;
+.text {
+	background-color: transparent;
+	border: none;
+	resize: none;
+	width: 100%;
+	height: 100%;
 }
-.text:focus{
-    outline: none;
+.text:focus {
+	outline: none;
 }
-.move, .trash{
-    width: 20px;
-    height: 20px;
+.move,
+.trash {
+	width: 20px;
+	height: 20px;
 }
-.ico, .ico2{
-    width: 100%;
-    height: 100%;
+.ico,
+.ico2 {
+	width: 100%;
+	height: 100%;
 }
-
-.note__container{
-    display: flex;
-    justify-content: space-between;
+.note__container {
+	display: flex;
+	justify-content: space-between;
 }
-.note__header{
-    display: flex;
-    justify-content: space-between;
+.note__header {
+	display: flex;
+	justify-content: space-between;
 }
-.note__header__colour button{
-    width: 20px;
-    height: 20px;
-    border: 1px solid black;
-    margin-right: 2px;
+.note__header__colour button {
+	width: 20px;
+	height: 20px;
+	border: 1px solid black;
+	margin-right: 2px;
 }
-.note__header__colour button img{
-    width: 100%;
-    height: 100%;
+.note__header__colour button img {
+	width: 100%;
+	height: 100%;
 }

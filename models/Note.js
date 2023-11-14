@@ -1,5 +1,4 @@
 class Note {
-    
 	constructor(id, title, text, hour, posX = 0, posY = 0, colour = "yellow") {
         this.id = id;
 		this.title = title;
@@ -33,10 +32,6 @@ class Note {
     {
         return this.colour;
     }
-
-
-
-
     setTitle(title)
     {
         this.title = title;

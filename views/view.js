@@ -47,7 +47,7 @@ class viewNote {
 		yellow.className = "yellow";
 		cY.appendChild(yellow);
 
-		// Green		
+		// Green
 		let cG = document.createElement("button");
 		cG.id = "green";
 		cG.className = "green";
@@ -74,14 +74,12 @@ class viewNote {
 		blue.className = "blue";
 		cB.appendChild(blue);
 
-
-		
 		/**
 		 * HEADER + COLOURS
 		 */
 		let headColour = document.createElement("div");
 		headColour.className = "note__header";
-		
+
 		/**
 		 * APPEND COLOURS
 		 */
@@ -89,8 +87,6 @@ class viewNote {
 		colour.appendChild(cG);
 		colour.appendChild(cP);
 		colour.appendChild(cB);
-		
-		
 
 		/**
 		 * TITLE
@@ -113,16 +109,14 @@ class viewNote {
 		h6.textContent = hour;
 		h6.className = "hour";
 		h6.id = "hour" + id;
-		/** 
+		/**
 		 * CHECK IF EXITS INPUT AND DELETE
 		 */
 		if (input) div.removeChild(input);
 		if (textarea) div.removeChild(textarea);
 		if (button) div.removeChild(button);
 
-
-
-		/** 
+		/**
 		 * CONFIG BUTONS
 		 */
 		let divbtns = document.createElement("div");
@@ -156,15 +150,15 @@ class viewNote {
 		// Append
 		h6btn.appendChild(h6);
 		h6btn.appendChild(divbtns);
-		
+
 		// Appends all
 		headColour.appendChild(h3);
-		headColour.appendChild(colour)
+		headColour.appendChild(colour);
 		div.appendChild(headColour);
 		div.appendChild(p);
 		div.appendChild(h6btn);
 	}
-	load(id, title, text, hour,posX,posY,noteColour) {
+	load(id, title, text, hour, posX, posY, noteColour) {
 		/**
 		 * GENERAL DIV
 		 */
@@ -194,7 +188,7 @@ class viewNote {
 		h6.textContent = hour;
 		h6.className = "hour";
 		h6.id = "hour" + id;
-		/** 
+		/**
 		 * CONFIG BUTONS
 		 */
 		let divbtns = document.createElement("div");
@@ -244,7 +238,7 @@ class viewNote {
 		yellow.className = "yellow";
 		cY.appendChild(yellow);
 
-		// Green		
+		// Green
 		let cG = document.createElement("button");
 		cG.id = "green";
 		cG.className = "green";
@@ -271,14 +265,12 @@ class viewNote {
 		blue.className = "blue";
 		cB.appendChild(blue);
 
-
-		
 		/**
 		 * HEADER + COLOURS
 		 */
 		let headColour = document.createElement("div");
 		headColour.className = "note__header";
-		
+
 		/**
 		 * APPEND COLOURS
 		 */
@@ -291,25 +283,24 @@ class viewNote {
 		 * APPENDS ALL
 		 */
 		headColour.appendChild(h3);
-		headColour.appendChild(colour)
+		headColour.appendChild(colour);
 		div.appendChild(headColour);
 		div.appendChild(p);
 		div.appendChild(h6btn);
-		
+
 		/**
 		 * STYLE NOTE
 		 */
 		div.style.left = `${posX}px`;
-    	div.style.top = `${posY}px`;
-		
+		div.style.top = `${posY}px`;
+
 		/**
 		 * APPENDS ALL
 		 */
-    	document.body.appendChild(div);
+		document.body.appendChild(div);
 	}
-	delete(index)
-	{
+	delete(index) {
 		let div = document.getElementById(index);
-		document.body.removeChild(div)
+		document.body.removeChild(div);
 	}
 }
