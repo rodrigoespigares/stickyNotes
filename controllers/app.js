@@ -19,7 +19,8 @@ window.onload = () => {
 	});
 	setTimeout(moveNote,0);
 	setTimeout(colour,0);
-	setTimeout(trash,0)
+	setTimeout(trash,0);
+	setTimeout(editNote,0);
 };
 function saveBtn(count) {
 	let btn = document.getElementById("save" + count);
@@ -27,9 +28,12 @@ function saveBtn(count) {
 		let tit = document.getElementById("inputTitle" + count).value;
 		let txt = document.getElementById("inputText" + count).value;
 		let now = new Date();
-		let h = now.getHours().toString().padStart(2, "0");
-		let m = now.getMinutes().toString().padStart(2, "0");
-		let hour = h + "." + m;
+		let dia = now.getDate().toString().padStart(2, '0');
+		let mes = (now.getMonth() + 1).toString().padStart(2, '0');
+		let anio = now.getFullYear();
+		let horas = now.getHours().toString().padStart(2, '0');
+		let minutos = now.getMinutes().toString().padStart(2, '0');
+		let hour = `${dia}.${mes}.${anio} ${horas}.${minutos}`;
 		myNote = new Note(count, tit, txt, hour);
 		myNotes.addNotes(myNote);
 		div.successful(
@@ -57,6 +61,12 @@ function saveBtn(count) {
 			});
 		}
 		myNotes.saveToLocalStorage();
+		let editButtons = document.getElementsByClassName("edit");
+		for (const editButton of editButtons) {
+			editButton.addEventListener("click", () => {
+			  	editNote();
+			});
+		}
 	});
 }
 function moveNote() {
@@ -86,6 +96,7 @@ function moveNote() {
             }
         }
     });
+	
 }
 function colour() {
 	let notes = document.getElementsByClassName("on");
@@ -115,3 +126,38 @@ function trash(){
 		});
 	}
 }
+function editNote() {
+	let editButtons = document.getElementsByClassName("edit");
+	let index
+	for (const editButton of editButtons) {
+		editButton.addEventListener("click", () => {
+			let id = parseInt(editButton.parentNode.parentNode.parentNode.id);
+			index = myNotes.getAllNotes().findIndex((element) => {
+				return element.id == id;			
+			})
+			div.edit(id)
+			let btn = document.getElementById("save" + id);
+			btn.addEventListener("click", () => {
+				let tit = document.getElementById("inputTitle" + id).value;
+				let txt = document.getElementById("inputText" + id).value;
+				let now = new Date();
+				let dia = now.getDate().toString().padStart(2, '0');
+				let mes = (now.getMonth() + 1).toString().padStart(2, '0');
+				let anio = now.getFullYear();
+				let horas = now.getHours().toString().padStart(2, '0');
+				let minutos = now.getMinutes().toString().padStart(2, '0');
+				let hour = `${dia}.${mes}.${anio} ${horas}.${minutos}`;
+				myNote = new Note(id, tit, txt, hour);
+				myNotes.addNotes(myNote);
+				div.successful(
+					id,
+					myNote.getTitle(),
+					myNote.getText(),
+					myNote.getHour()
+				);
+			});
+			myNotes.saveToLocalStorage();
+		});
+	}
+}
+

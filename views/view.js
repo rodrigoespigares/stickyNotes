@@ -138,9 +138,19 @@ class viewNote {
 		ico2.src = "src/img/trash.png";
 		ico2.className = "ico2";
 		trash.appendChild(ico2);
+		// edit
+		let edit = document.createElement("button");
+		edit.id = "edit";
+		edit.className = "edit";
+		// Icon edit
+		let ico3 = document.createElement("img");
+		ico3.src = "src/img/edit.png";
+		ico3.className = "ico3";
+		edit.appendChild(ico3);
 		// Append
 		divbtns.appendChild(move);
 		divbtns.appendChild(trash);
+		divbtns.appendChild(edit);
 
 		/**
 		 * HOUR + CONFIG BUTTONS
@@ -210,9 +220,19 @@ class viewNote {
 		ico2.src = "src/img/trash.png";
 		ico2.className = "ico2";
 		trash.appendChild(ico2);
+		// edit
+		let edit = document.createElement("button");
+		edit.id = "edit";
+		edit.className = "edit";
+		// Icon edit
+		let ico3 = document.createElement("img");
+		ico3.src = "src/img/edit.png";
+		ico3.className = "ico3";
+		edit.appendChild(ico3);
 		// Append
 		divbtns.appendChild(move);
 		divbtns.appendChild(trash);
+		divbtns.appendChild(edit);
 
 		/**
 		 * HOUR + CONFIG BUTTONS
@@ -302,5 +322,41 @@ class viewNote {
 	delete(index) {
 		let div = document.getElementById(index);
 		document.body.removeChild(div);
+	}
+	edit(index){
+		/**
+		 * CREATE GENERAL
+		 */
+		let div = document.getElementById(index);
+		let headBtn = div.querySelector(".note__header")
+		let footBtn = div.querySelector(".note__container")
+		/**
+		 * SELECT ELEMENT
+		 */
+		let h3 = document.getElementById("title"+index);
+		let p = document.getElementById("text"+index);
+		let hour = document.getElementById("hour"+index);
+		/**
+		 * CREATE ELEMENT
+		 */
+		let input = document.createElement("input");
+		input.className = "title";
+		input.id = "inputTitle" + index;
+		input.value = h3.textContent;
+		let textarea = document.createElement("textarea");
+		textarea.className = "text";
+		textarea.id = "inputText" + index;
+		textarea.value = p.textContent;
+		let btnSave = document.createElement("button");
+		btnSave.id = "save" + index;
+		btnSave.textContent = "Save";
+		div.appendChild(input);
+		div.appendChild(textarea);
+		div.appendChild(btnSave);
+		console.log(h3);
+		div.removeChild(headBtn);
+		div.removeChild(p);
+		div.removeChild(footBtn);
+		document.body.appendChild(div);
 	}
 }

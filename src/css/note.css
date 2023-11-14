@@ -37,12 +37,14 @@
 	outline: none;
 }
 .move,
-.trash {
+.trash,
+.edit {
 	width: 20px;
 	height: 20px;
 }
 .ico,
-.ico2 {
+.ico2,
+.ico3 {
 	width: 100%;
 	height: 100%;
 }
