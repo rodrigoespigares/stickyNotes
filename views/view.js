@@ -295,11 +295,13 @@ class viewNote {
 		div.appendChild(headColour);
 		div.appendChild(p);
 		div.appendChild(h6btn);
+		
 		/**
 		 * STYLE NOTE
 		 */
 		div.style.left = `${posX}px`;
     	div.style.top = `${posY}px`;
+		
 		/**
 		 * APPENDS ALL
 		 */

@@ -1,6 +1,6 @@
 var div;
-var myNotes;
-var count = 0;
+var myNotes = new ListNotes();
+var count = myNotes.getAllNotes().length >0?parseInt(myNotes.getAllNotes()[(myNotes.getAllNotes().length)-1]['id']):0;
 var ratonEncima = false;
 var notes;
 var posX, posY;
@@ -9,11 +9,8 @@ var myNote;
 
 window.onload = () => {
 	div = new viewNote();
-	myNotes = new ListNotes();
 	myNotes.getAllNotes().forEach((note, key) => {
-		
-		myNote = new Note(note["title"], note["text"], note["hour"], note["posX"], note["posY"], note["colour"]);
-		div.load(key, myNote.getTitle(), myNote.getText(), myNote.getHour(), myNote.getPosX(), myNote.getPosY(), myNote.getColour());
+		div.load(key, note["title"], note["text"], note["hour"], note["posX"], note["posY"], note["colour"]);
 		count++;
 	});
 	document.getElementById("btnNote").addEventListener("click", () => {
@@ -23,6 +20,8 @@ window.onload = () => {
 	});
 
 	setTimeout(moveNote,0);
+	setTimeout(colour,0);
+	setTimeout(trash,0)
 };
 
 function saveBtn(count) {
@@ -53,43 +52,38 @@ function saveBtn(count) {
 		let btnsTrash = document.getElementsByClassName("trash");
 		for (const btnTrash of btnsTrash) {
 			btnTrash.addEventListener("click", () => {
-				let id = btnTrash.parentNode.parentNode.parentNode.id;
-				let index = myNotes.getAllNotes().findIndex((element) => {
-					return element.id === id;
-				})
-				myNotes.deleteNote(index);
-				div.delete(id);
+				trash();
 			});
 		}
-		let btnsColour = document.getElementsByClassName("note__header__colour");
-		for (const btnColour of btnsColour) {
-			btnColour.addEventListener("click", (e) => {
-				if (validateColours.includes(e.target.className)) {
-					e.target.parentNode.parentNode.parentNode.parentNode.classList = "note "+e.target.className+" on";
-					myNote.setColour(e.target.className);
-				}
+		let btnsColours = document.getElementsByClassName("note__header__colour");
+		for (const btnColours of btnsColours) {
+			btnColours.addEventListener("click", () => {
+			  	colour();
 			});
 		}
 		myNotes.saveToLocalStorage();
 	});
 }
-function moveNote(myNote) {
+function moveNote() {
     let notes = document.getElementsByClassName("on");
 
     for (let i = 0; i < notes.length; i++) {
         notes[i].ratonEncima = false;
 
         notes[i].addEventListener("click", function (e) {
-            this.ratonEncima = !this.ratonEncima;
-            if (this.ratonEncima) {
-                let rect = this.getBoundingClientRect();
-                this.posX = e.clientX - rect.left;
-                this.posY = e.clientY - rect.top;
-            } else {
-                myNote.setPosX(parseInt(notes[i].style.left));
-                myNote.setPosY(parseInt(notes[i].style.top));
-            }
-            myNotes.saveToLocalStorage();
+			if (e.target.parentNode.id == "move") {
+				this.ratonEncima = !this.ratonEncima;
+				if (this.ratonEncima) {
+					let rect = this.getBoundingClientRect();
+					this.posX = e.clientX - rect.left;
+					this.posY = e.clientY - rect.top;
+				} else {
+
+					myNotes.getAllNotes()[i]['posX']=(parseInt(notes[i].style.left));
+					myNotes.getAllNotes()[i]['posY']=(parseInt(notes[i].style.top));
+				}
+				myNotes.saveToLocalStorage();
+			}     
         });
     }
 
@@ -101,4 +95,39 @@ function moveNote(myNote) {
             }
         }
     });
+}
+function colour() {
+	let notes = document.getElementsByClassName("on");
+
+    for (let i = 0; i < notes.length; i++) {
+
+        notes[i].addEventListener("click", function (e) {
+			if (validateColours.includes(e.target.className)) {
+					e.target.parentNode.parentNode.parentNode.parentNode.classList = "note "+e.target.className+" on";
+					myNotes.getAllNotes()[i]['colour']=e.target.className
+				myNotes.saveToLocalStorage();
+			}     
+        });
+    }
+
+
+	myNotes.saveToLocalStorage();
+}
+function trash(){
+	let btnsTrash = document.getElementsByClassName("trash");
+	let index
+	for (const btnTrash of btnsTrash) {
+		btnTrash.addEventListener("click", () => {
+			let id = parseInt(btnTrash.parentNode.parentNode.parentNode.id);
+			index = myNotes.getAllNotes().findIndex((element) => {
+				return element.id == id;
+				
+			})
+			myNotes.deleteNote(index);
+			div.delete(id)
+			myNotes.saveToLocalStorage();
+		});
+	}
+	
+	
 }
