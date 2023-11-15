@@ -353,7 +353,6 @@ class viewNote {
 		div.appendChild(input);
 		div.appendChild(textarea);
 		div.appendChild(btnSave);
-		console.log(h3);
 		div.removeChild(headBtn);
 		div.removeChild(p);
 		div.removeChild(footBtn);

@@ -22,7 +22,7 @@ window.onload = () => {
 	setTimeout(trash,0);
 	setTimeout(editNote,0);
 };
-function saveBtn(count) {
+function saveBtn(count, X = 10, Y = 4, color = "yellow") {
 	let btn = document.getElementById("save" + count);
 	btn.addEventListener("click", () => {
 		let tit = document.getElementById("inputTitle" + count).value;
@@ -34,13 +34,19 @@ function saveBtn(count) {
 		let horas = now.getHours().toString().padStart(2, '0');
 		let minutos = now.getMinutes().toString().padStart(2, '0');
 		let hour = `${dia}.${mes}.${anio} ${horas}.${minutos}`;
-		myNote = new Note(count, tit, txt, hour);
+		console.log("x: "+X);
+		console.log("y: "+Y);
+		myNote = new Note(count, tit, txt, hour, X , Y, color);
 		myNotes.addNotes(myNote);
-		div.successful(
+		div.delete(count);
+		div.load(
 			count,
 			myNote.getTitle(),
 			myNote.getText(),
-			myNote.getHour()
+			myNote.getHour(),
+			myNote.getPosX(),
+			myNote.getPosY(),
+			myNote.getColour()
 		);
 		let btnsMove = document.getElementsByClassName("move");
 		for (const btnMove of btnsMove) {
@@ -128,34 +134,19 @@ function trash(){
 }
 function editNote() {
 	let editButtons = document.getElementsByClassName("edit");
-	let index
 	for (const editButton of editButtons) {
 		editButton.addEventListener("click", () => {
 			let id = parseInt(editButton.parentNode.parentNode.parentNode.id);
-			index = myNotes.getAllNotes().findIndex((element) => {
-				return element.id == id;			
-			})
-			div.edit(id)
-			let btn = document.getElementById("save" + id);
-			btn.addEventListener("click", () => {
-				let tit = document.getElementById("inputTitle" + id).value;
-				let txt = document.getElementById("inputText" + id).value;
-				let now = new Date();
-				let dia = now.getDate().toString().padStart(2, '0');
-				let mes = (now.getMonth() + 1).toString().padStart(2, '0');
-				let anio = now.getFullYear();
-				let horas = now.getHours().toString().padStart(2, '0');
-				let minutos = now.getMinutes().toString().padStart(2, '0');
-				let hour = `${dia}.${mes}.${anio} ${horas}.${minutos}`;
-				myNote = new Note(id, tit, txt, hour);
-				myNotes.addNotes(myNote);
-				div.successful(
-					id,
-					myNote.getTitle(),
-					myNote.getText(),
-					myNote.getHour()
-				);
-			});
+			let posX = editButton.parentNode.parentNode.parentNode.style.left;
+			let X = posX.substr(0, posX.length - 2);
+			let posY = editButton.parentNode.parentNode.parentNode.style.top;
+			let Y = posX.substr(0, posY.length - 2);
+			let color = editButton.parentNode.parentNode.parentNode.classList[1];
+			myNotes.deleteNote(id);
+			div.edit(id);
+			console.log("x: "+X);
+			console.log("y: "+Y);
+			saveBtn(id,X,Y,color);
 			myNotes.saveToLocalStorage();
 		});
 	}
