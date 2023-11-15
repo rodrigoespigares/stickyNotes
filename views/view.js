@@ -56,6 +56,7 @@ class viewNote {
 		 * CONFIG BUTONS
 		 */
 		let divbtns = document.createElement("div");
+		divbtns.id = "note__container__config"
 		// Move
 		let move = document.createElement("button");
 		move.id = "move";
@@ -83,6 +84,7 @@ class viewNote {
 		ico3.src = "src/img/edit.png";
 		ico3.className = "ico3";
 		edit.appendChild(ico3);
+
 		// Append
 		divbtns.appendChild(move);
 		divbtns.appendChild(trash);

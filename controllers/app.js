@@ -10,17 +10,20 @@ window.onload = () => {
 	div = new viewNote();
 	myNotes.getAllNotes().forEach((note, key) => {
 		div.load(key, note["title"], note["text"], note["hour"], note["posX"], note["posY"], note["colour"]);
-		count++;
 	});
 	document.getElementById("btnNote").addEventListener("click", () => {
-		div.create(count);
+		div.create(++count);
 		saveBtn(count);
-		count++;
 	});
-	moveNote();
+	document.addEventListener('dragstart', function(evt) {
+		if (evt.target.tagName == 'IMG') {
+		  evt.preventDefault();
+		}
+	  });
 	colour();
-	setTimeout(trash,0);
-	setTimeout(editNote,0);
+	trash();
+	editNote();
+	moveNote();
 };
 function saveBtn(count, X = 10, Y = 4, color = "yellow") {
 	let btn = document.getElementById("save" + count);
@@ -46,52 +49,46 @@ function saveBtn(count, X = 10, Y = 4, color = "yellow") {
 			myNote.getPosY(),
 			myNote.getColour()
 		);
-		let btnsMove = document.getElementsByClassName("move");
-		for (const btnMove of btnsMove) {
-			btnMove.addEventListener("click", () => {
-			  	moveNote(myNote);
-			});
-		}
-		let btnsTrash = document.getElementsByClassName("trash");
-		for (const btnTrash of btnsTrash) {
-			btnTrash.addEventListener("click", () => {
-				trash();
-			});
-		}
-		let btnsColours = document.getElementsByClassName("note__header__colour");
-		for (const btnColours of btnsColours) {
-			btnColours.addEventListener("click", () => {
-			  	colour();
-			});
-		}
 		myNotes.saveToLocalStorage();
-		let editButtons = document.getElementsByClassName("edit");
-		for (const editButton of editButtons) {
-			editButton.addEventListener("click", () => {
-			  	editNote();
-			});
-		}
+		trash();
+		colour();
+		editNote();
+		moveNote();
 	});
+	
 }
 function moveNote() {
     let notes = document.getElementsByClassName("on");
+
     for (let i = 0; i < notes.length; i++) {
         notes[i].ratonEncima = false;
-        notes[i].addEventListener("click", function (e) {
-			if (e.target.parentNode.id == "move") {
-				this.ratonEncima = !this.ratonEncima;
-				if (this.ratonEncima) {
-					let rect = this.getBoundingClientRect();
-					this.posX = e.clientX - rect.left;
-					this.posY = e.clientY - rect.top;
-				} else {
-					myNotes.getAllNotes()[i]['posX']=(parseInt(notes[i].style.left));
-					myNotes.getAllNotes()[i]['posY']=(parseInt(notes[i].style.top));
-				}
-				myNotes.saveToLocalStorage();
-			}     
+        notes[i].posX = 0;
+        notes[i].posY = 0;
+
+		notes[i].addEventListener("click", function () {
+			this.style.zIndex = 1;
+		});
+
+        notes[i].addEventListener("mousedown", function (e) {
+            if (e.target.parentNode.id == "move") {
+                this.ratonEncima = true;
+                let rect = this.getBoundingClientRect();
+                this.posX = e.clientX - rect.left;
+                this.posY = e.clientY - rect.top;
+            }
+        });
+
+        notes[i].addEventListener("mouseup", function (e) {
+            if (this.ratonEncima) {
+                this.ratonEncima = false;
+                myNotes.getAllNotes()[i]['posX'] = parseFloat(this.style.left);
+                myNotes.getAllNotes()[i]['posY'] = parseFloat(this.style.top);
+				this.style.zindex=0;
+                myNotes.saveToLocalStorage();
+            }
         });
     }
+
     document.addEventListener("mousemove", function (e) {
         for (let i = 0; i < notes.length; i++) {
             if (notes[i].ratonEncima) {
@@ -100,13 +97,13 @@ function moveNote() {
             }
         }
     });
-	
 }
 function colour() {
 	let notes = document.getElementsByClassName("on");
     for (let i = 0; i < notes.length; i++) {
-        notes[i].addEventListener("click", function (e) {
+        notes[i].addEventListener("mouseup", function (e) {
 			if (validateColours.includes(e.target.className)) {
+				console.log("Cambio color")
 					e.target.parentNode.parentNode.parentNode.parentNode.classList = "note "+e.target.className+" on";
 					myNotes.getAllNotes()[i]['colour']=e.target.className
 				myNotes.saveToLocalStorage();
@@ -119,7 +116,7 @@ function trash(){
 	let btnsTrash = document.getElementsByClassName("trash");
 	let index
 	for (const btnTrash of btnsTrash) {
-		btnTrash.addEventListener("click", () => {
+		btnTrash.addEventListener("mouseup", () => {
 			let id = parseInt(btnTrash.parentNode.parentNode.parentNode.id);
 			index = myNotes.getAllNotes().findIndex((element) => {
 				return element.id == id;			
@@ -134,7 +131,7 @@ function editNote() {
 	let editButtons = document.getElementsByClassName("edit");
 	let index;
 	for (const editButton of editButtons) {
-		editButton.addEventListener("click", () => {
+		editButton.addEventListener("mouseup", () => {
 			let id = parseInt(editButton.parentNode.parentNode.parentNode.id);
 			index = myNotes.getAllNotes().findIndex((element) => {
 				return element.id == id;			
