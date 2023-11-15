@@ -17,8 +17,8 @@ window.onload = () => {
 		saveBtn(count);
 		count++;
 	});
-	setTimeout(moveNote,0);
-	setTimeout(colour,0);
+	moveNote();
+	colour();
 	setTimeout(trash,0);
 	setTimeout(editNote,0);
 };
@@ -34,8 +34,6 @@ function saveBtn(count, X = 10, Y = 4, color = "yellow") {
 		let horas = now.getHours().toString().padStart(2, '0');
 		let minutos = now.getMinutes().toString().padStart(2, '0');
 		let hour = `${dia}.${mes}.${anio} ${horas}.${minutos}`;
-		console.log("x: "+X);
-		console.log("y: "+Y);
 		myNote = new Note(count, tit, txt, hour, X , Y, color);
 		myNotes.addNotes(myNote);
 		div.delete(count);
@@ -134,18 +132,20 @@ function trash(){
 }
 function editNote() {
 	let editButtons = document.getElementsByClassName("edit");
+	let index;
 	for (const editButton of editButtons) {
 		editButton.addEventListener("click", () => {
 			let id = parseInt(editButton.parentNode.parentNode.parentNode.id);
+			index = myNotes.getAllNotes().findIndex((element) => {
+				return element.id == id;			
+			})
 			let posX = editButton.parentNode.parentNode.parentNode.style.left;
 			let X = posX.substr(0, posX.length - 2);
 			let posY = editButton.parentNode.parentNode.parentNode.style.top;
-			let Y = posX.substr(0, posY.length - 2);
+			let Y = posY.substr(0, posY.length - 2);
 			let color = editButton.parentNode.parentNode.parentNode.classList[1];
-			myNotes.deleteNote(id);
+			myNotes.deleteNote(index);
 			div.edit(id);
-			console.log("x: "+X);
-			console.log("y: "+Y);
 			saveBtn(id,X,Y,color);
 			myNotes.saveToLocalStorage();
 		});
