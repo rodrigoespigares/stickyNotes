@@ -8,8 +8,8 @@ var validateColours = ["pink","green","blue","yellow"]
 var myNote;
 window.onload = () => {
 	div = new viewNote();
-	myNotes.getAllNotes().forEach((note, key) => {
-		div.load(key, note["title"], note["text"], note["hour"], note["posX"], note["posY"], note["colour"]);
+	myNotes.getAllNotes().forEach((note) => {
+		div.load(note['id'], note["title"], note["text"], note["hour"], note["posX"], note["posY"], note["colour"]);
 	});
 	document.getElementById("btnNote").addEventListener("click", () => {
 		div.create(++count);
@@ -102,10 +102,10 @@ function colour() {
 	let notes = document.getElementsByClassName("on");
     for (let i = 0; i < notes.length; i++) {
         notes[i].addEventListener("mouseup", function (e) {
-			if (validateColours.includes(e.target.className)) {
-				console.log("Cambio color")
-					e.target.parentNode.parentNode.parentNode.parentNode.classList = "note "+e.target.className+" on";
-					myNotes.getAllNotes()[i]['colour']=e.target.className
+			parentElement = e.target.parentNode.parentNode.parentNode.parentNode;
+			if (validateColours.includes(e.target.className) && !isNaN(parseInt(parentElement.id))) {
+				parentElement.classList = "note "+e.target.className+" on";
+				myNotes.getAllNotes()[i]['colour']=e.target.className
 				myNotes.saveToLocalStorage();
 			}     
         });
@@ -121,31 +121,40 @@ function trash(){
 			index = myNotes.getAllNotes().findIndex((element) => {
 				return element.id == id;			
 			})
-			myNotes.deleteNote(index);
-			div.delete(id)
-			myNotes.saveToLocalStorage();
+			if (index !== -1) {
+				myNotes.deleteNote(index);
+				div.delete(id);
+				myNotes.saveToLocalStorage();
+			}
 		});
 	}
 }
 function editNote() {
-	let editButtons = document.getElementsByClassName("edit");
-	let index;
-	for (const editButton of editButtons) {
-		editButton.addEventListener("mouseup", () => {
-			let id = parseInt(editButton.parentNode.parentNode.parentNode.id);
-			index = myNotes.getAllNotes().findIndex((element) => {
-				return element.id == id;			
-			})
-			let posX = editButton.parentNode.parentNode.parentNode.style.left;
-			let X = posX.substr(0, posX.length - 2);
-			let posY = editButton.parentNode.parentNode.parentNode.style.top;
-			let Y = posY.substr(0, posY.length - 2);
-			let color = editButton.parentNode.parentNode.parentNode.classList[1];
-			myNotes.deleteNote(index);
-			div.edit(id);
-			saveBtn(id,X,Y,color);
-			myNotes.saveToLocalStorage();
-		});
-	}
-}
+    let editButtons = document.getElementsByClassName("edit");
+    let index;
 
+    for (let i = 0; i < editButtons.length; i++) {
+        let editButton = editButtons[i];
+
+        editButton.addEventListener("mouseup", () => {
+			
+			if (editButton.parentNode && editButton.parentNode.parentNode && editButton.parentNode.parentNode.parentNode) {
+				let id = parseInt(editButton.parentNode.parentNode.parentNode.id);
+				index = myNotes.getAllNotes().findIndex((element) => {
+					return element.id == id;
+				});
+
+				let posX = editButton.parentNode.parentNode.parentNode.style.left;
+				let X = posX.substr(0, posX.length - 2);
+				let posY = editButton.parentNode.parentNode.parentNode.style.top;
+				let Y = posY.substr(0, posY.length - 2);
+				let color = editButton.parentNode.parentNode.parentNode.classList[1];
+
+				myNotes.deleteNote(index);
+				div.edit(id);
+				saveBtn(id, X, Y, color);
+				myNotes.saveToLocalStorage();
+			}
+        });
+    }
+}
