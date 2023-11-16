@@ -1,6 +1,8 @@
 # Sticky Notes
 Create your notes and remember your activities
 
+![imagen](https://github.com/rodrigoespigares/stickyNotes/assets/94736646/dc43fc75-1a8f-4ba5-8eba-74318e9bfdb2)
+
 ## Learned content
 This project has been created with the purpose of practicing MVC in JavaScript
 
