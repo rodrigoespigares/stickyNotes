@@ -5,5 +5,7 @@ Create your notes and remember your activities
 This project has been created with the purpose of practicing MVC in JavaScript
 
 ## Version data
+### V. 1.1
+Change style of note
 ### V. 1.0
 Application ready to organize your day
